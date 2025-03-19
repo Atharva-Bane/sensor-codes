@@ -1,0 +1,23 @@
+// Define the analog pin where the pH sensor is connected
+const int pH_pin = A0;
+// Variables for pH calculation
+float voltage;
+float pHValue;
+void setup() {
+Serial.begin(9600); // Start serial communication
+}
+void loop() {
+// Read the sensor value
+int sensorValue = analogRead(pH_pin);
+// Convert the sensor value to voltage
+voltage = sensorValue * (5.0 / 1023.0);
+// Convert voltage to pH (This is a basic formula; calibration is needed for accuracy)
+// Assuming 3.0V corresponds to pH 7 and 0.0V to pH 0
+pHValue = 7 + ((2.5 - voltage) / 0.18); // Adjust the formula based on calibration
+// Print the pH value
+Serial.print("Voltage: ");
+Serial.print(voltage);
+Serial.print(" V | pH: ");
+Serial.println(pHValue);
+delay(1000); // Wait 1 second before next reading
+}
